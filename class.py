@@ -26,12 +26,16 @@ class vali:
         data = fid.GetRasterBand(1).ReadAsArray()
         return data
 
-    def findmissing(self):
+    def findmissing(self,l):
+        s=[re.findall('.*(\d{7})',x)[0] for x in l]
+        s=set(s)
+        jtos=set(['2012'+str(x) for x in range(153,275)])
+        return sorted(list(jtos-s))
 
-
-    def getmonth(self):
-
-
+    def getmonth(self,k):
+        t= [31,29,31,30,31,30,31,31,30]
+        return sum(t[:(k-1)])+1,sum(t[:k])
+'''
     def getall(self):
 
 
@@ -43,7 +47,7 @@ class vali:
 
     def pltwithregion(self):
 
-
-d = vali('^la', '.tif')
-print d.sname
-print d.wname
+'''
+d = vali('^la.*LEc', '.tif')
+print d.findmissing(d.sname)
+print d.getmonth(6)
